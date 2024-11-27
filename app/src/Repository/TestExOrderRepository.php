@@ -16,6 +16,15 @@ class TestExOrderRepository extends ServiceEntityRepository
         parent::__construct($registry, TestExOrder::class);
     }
 
+    public function save(TestExOrder $testExOrder, bool $flush = false)
+    {
+        $this->getEntityManager()->persist($testExOrder);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
     //    /**
     //     * @return TestExOrder[] Returns an array of TestExOrder objects
     //     */

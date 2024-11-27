@@ -16,6 +16,15 @@ class TestExRepository extends ServiceEntityRepository
         parent::__construct($registry, TestEx::class);
     }
 
+    public function save(TestEx $testEx, bool $flush = false)
+    {
+        $this->getEntityManager()->persist($testEx);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
     //    /**
     //     * @return TestEx[] Returns an array of TestEx objects
     //     */

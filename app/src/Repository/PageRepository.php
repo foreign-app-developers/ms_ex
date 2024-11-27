@@ -16,6 +16,15 @@ class PageRepository extends ServiceEntityRepository
         parent::__construct($registry, Page::class);
     }
 
+    public function save(Page $page, bool $flush = false)
+    {
+        $this->getEntityManager()->persist($page);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
     //    /**
     //     * @return Page[] Returns an array of Page objects
     //     */

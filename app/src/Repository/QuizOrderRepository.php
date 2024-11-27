@@ -16,6 +16,15 @@ class QuizOrderRepository extends ServiceEntityRepository
         parent::__construct($registry, QuizOrder::class);
     }
 
+    public function save(QuizOrder $quizOrder, bool $flush = false)
+    {
+        $this->getEntityManager()->persist($quizOrder);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
     //    /**
     //     * @return QuizOrder[] Returns an array of QuizOrder objects
     //     */

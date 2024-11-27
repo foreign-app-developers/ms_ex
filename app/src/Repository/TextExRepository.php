@@ -16,6 +16,15 @@ class TextExRepository extends ServiceEntityRepository
         parent::__construct($registry, TextEx::class);
     }
 
+    public function save(TextEx $textEx, bool $flush = false)
+    {
+        $this->getEntityManager()->persist($textEx);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
     //    /**
     //     * @return TextEx[] Returns an array of TextEx objects
     //     */

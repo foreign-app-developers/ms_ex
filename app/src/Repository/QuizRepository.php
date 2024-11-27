@@ -16,6 +16,15 @@ class QuizRepository extends ServiceEntityRepository
         parent::__construct($registry, Quiz::class);
     }
 
+    public function save(Quiz $quiz, bool $flush = false)
+    {
+        $this->getEntityManager()->persist($quiz);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
     //    /**
     //     * @return Quiz[] Returns an array of Quiz objects
     //     */

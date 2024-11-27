@@ -16,6 +16,15 @@ class TextExOrderRepository extends ServiceEntityRepository
         parent::__construct($registry, TextExOrder::class);
     }
 
+    public function save(TextExOrder $textExOrder, bool $flush = false)
+    {
+        $this->getEntityManager()->persist($textExOrder);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
     //    /**
     //     * @return TextExOrder[] Returns an array of TextExOrder objects
     //     */
