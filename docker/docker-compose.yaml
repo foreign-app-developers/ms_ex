@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  ms_ex:
+    container_name: ms_ex
+    build: dockerfile/php
+    restart: on-failure
+    expose:
+      - "9000"
+    volumes:
+      - ../app:/var/www/html
+      - ../app/vendor:/var/www/html/vendor
+    links:
+      - db_ex
+
+  nginx_ex:
+    container_name: nginx_ex
+    image: nginx:latest
+    restart: on-failure
+    ports:
+      - "8000:80"
+    volumes:
+      - ../app:/var/www/html
+      - ./logs/nginx:/var/log/nginx
+      - ./config/nginx:/etc/nginx/conf.d
+    links:
+      - ms_ex
+
+  db_ex:
+    container_name: db_ex
+    ports:
+      - "5438:5432"
+    environment:
+      - POSTGRES_NAME=db_ex
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_USER=admin
+    image: postgres:14.3-alpine
+
+
+
